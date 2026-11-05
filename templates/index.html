@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow | Student Scheduler</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="brand">TaskFlow<span>.</span></div>
+        <p class="side-caption">STUDENT WORKSPACE</p>
+        <a class="nav active" href="#dashboard">▦ Dashboard</a>
+        <a class="nav" href="#tasks">☷ All Tasks</a>
+        <a class="nav" href="#priority">⚡ Priority Queue</a>
+        <div class="sidebar-bottom">
+            <div class="side-note">DSA PROJECT<br><strong>Binary Max Heap</strong></div>
+        </div>
+    </aside>
+
+    <main class="main" id="dashboard">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">YOUR PERSONAL WORKSPACE</p>
+                <h1>Task Dashboard</h1>
+                <p class="muted">Plan smarter. Prioritise better. Stay ahead.</p>
+            </div>
+            <button class="primary-btn" onclick="openForm()">+ Add New Task</button>
+        </header>
+
+        <section class="stats">
+            <article class="stat-card">
+                <span>Total Tasks</span>
+                <strong id="totalCount">0</strong>
+                <small>All recorded tasks</small>
+            </article>
+            <article class="stat-card">
+                <span>Pending</span>
+                <strong id="pendingCount">0</strong>
+                <small>Tasks to complete</small>
+            </article>
+            <article class="stat-card">
+                <span>Completed</span>
+                <strong id="completedCount">0</strong>
+                <small>Tasks finished</small>
+            </article>
+            <article class="stat-card warning-card">
+                <span>Overdue</span>
+                <strong id="overdueCount">0</strong>
+                <small>Past their deadline</small>
+            </article>
+        </section>
+
+        <section class="recommendation" id="nextTask">
+            <div>
+                <p class="eyebrow light">RECOMMENDED NEXT TASK</p>
+                <h2>Loading recommendation...</h2>
+                <p>Your highest-priority pending task appears here.</p>
+            </div>
+            <div class="recommend-icon">↗</div>
+        </section>
+
+        <section class="content-panel" id="tasks">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">TASK MANAGEMENT</p>
+                    <h2>Your tasks</h2>
+                </div>
+                <div class="controls">
+                    <input id="searchInput" type="search"
+                           placeholder="Search title, category or ID...">
+                    <select id="sortSelect" aria-label="Sort tasks">
+                        <option value="priority">Priority order</option>
+                        <option value="deadline">Deadline</option>
+                        <option value="title">Task name</option>
+                    </select>
+                </div>
+            </div>
+            <div id="taskList" class="task-list"></div>
+        </section>
+
+        <section class="content-panel" id="priority">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">DATA STRUCTURES IN ACTION</p>
+                    <h2>Priority queue</h2>
+                    <p class="muted">Ordered using the custom Binary Max Heap.</p>
+                </div>
+                <span class="heap-tag">MAX HEAP</span>
+            </div>
+            <div id="priorityList" class="priority-list"></div>
+        </section>
+        <footer>TaskFlow · Student Task and Deadline Scheduler · DSA Project</footer>
+    </main>
+
+    <div class="modal-backdrop" id="taskModal">
+        <div class="modal">
+            <div class="modal-heading">
+                <div>
+                    <p class="eyebrow">TASK DETAILS</p>
+                    <h2 id="modalTitle">Create a task</h2>
+                </div>
+                <button class="close-btn" onclick="closeForm()" aria-label="Close">×</button>
+            </div>
+
+            <form id="taskForm">
+                <input type="hidden" id="taskId">
+                <label for="title">Task name</label>
+                <input id="title" maxlength="100" required
+                       placeholder="e.g. Complete DSA assignment">
+
+                <label for="category">Category</label>
+                <input id="category" maxlength="50" required
+                       placeholder="e.g. Academics">
+
+                <div class="form-row">
+                    <div>
+                        <label for="deadline">Deadline</label>
+                        <input id="deadline" type="date" required>
+                    </div>
+                    <div>
+                        <label for="importance">Importance</label>
+                        <select id="importance">
+                            <option value="1">1 - Low</option>
+                            <option value="2">2 - Below average</option>
+                            <option value="3" selected>3 - Medium</option>
+                            <option value="4">4 - High</option>
+                            <option value="5">5 - Critical</option>
+                        </select>
+                    </div>
+                </div>
+
+                <label for="hours">Estimated effort (hours)</label>
+                <input id="hours" type="number" min="0.1" max="100"
+                       step="0.1" value="2" required>
+
+                <div class="modal-actions">
+                    <button type="button" class="secondary-btn"
+                            onclick="closeForm()">Cancel</button>
+                    <button type="submit" class="primary-btn">Save Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast" class="toast" role="status"></div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

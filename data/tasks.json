@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "title": "Complete DSA Assignment",
+        "category": "Academics",
+        "deadline": "2026-11-06",
+        "importance": 4,
+        "hours": 2.0,
+        "status": "Pending"
+    },
+    {
+        "id": 2,
+        "title": "Complete CN assignment",
+        "category": "Academics",
+        "deadline": "2026-11-06",
+        "importance": 4,
+        "hours": 5.0,
+        "status": "Completed"
+    }
+]
